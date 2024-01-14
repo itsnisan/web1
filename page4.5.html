@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congratulations</title>
+    <style>
+        body {
+            background-color: cyan;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #container {
+            text-align: center;
+            font-family: comic sans ms;
+            font-size: 35px;
+            color: rgb(255, 0, 43);
+        }
+
+        #container4 {
+            text-align: center;
+            font-family: comic sans ms;
+            font-size: 30px;
+            color: rgb(0, 181, 21);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">        
+        <p>But, Let's Play Some Games First...</p>
+        <img src="https://media.tenor.com/nlJxZhh7FToAAAAj/wink-flirty.gif" alt="Your Image">
+        <br>
+        <button onclick="proceedToNextPage()">Play</button>
+    </div>
+    <script>
+        function proceedToNextPage() {
+            // Redirect to the next page (replace 'page5.html' with the actual name of the next page)
+            window.location.href = 'ball game.html';
+        }
+    </script>
+</body>
+</html>

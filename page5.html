@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        body {
+            background-color: cyan;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #container {
+            text-align: center;
+        }
+
+        #container5 {
+            text-align: center;
+            font-family: comic sans ms;
+            font-size: 30px;
+            color: rgb(0, 181, 21);
+        }
+        
+        #container6 {
+            text-align: center;
+            font-family: comic sans ms;
+            font-size: 25px;
+            color: rgb(181, 0, 0);
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 5px;
+            margin-top: 20px;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            font-size: 24px;
+            cursor: pointer;
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #result {
+            margin-top: 10px;
+        }
+
+        #restart {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #smartness {
+            margin-top: 20px;
+            font-size: 16px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="container5">
+        <h2>Let's Play: Tic Tac Toe</h2>
+        </div>
+     
+        <div class="board" id="board">
+            <div class="cell" onclick="makeMove(0)"></div>
+            <div class="cell" onclick="makeMove(1)"></div>
+            <div class="cell" onclick="makeMove(2)"></div>
+            <div class="cell" onclick="makeMove(3)"></div>
+            <div class="cell" onclick="makeMove(4)"></div>
+            <div class="cell" onclick="makeMove(5)"></div>
+            <div class="cell" onclick="makeMove(6)"></div>
+            <div class="cell" onclick="makeMove(7)"></div>
+            <div class="cell" onclick="makeMove(8)"></div>
+        </div>
+        <p id="result"></p>
+        <button id="restart" onclick="restartGame()">Restart</button>
+        <div id="smartness">
+            <label for="smartnessLevel">Computer Smartness:</label>
+            <input type="range" id="smartnessLevel" min="1" max="5" value="3" oninput="updateSmartness()">
+            <span id="smartnessValue">3</span>
+        </div>
+<br>
+        <div id="container6">
+        <p>Bored Again? Let's Change </p>
+    </div>
+        <div id="buttons">
+            <button onclick="redirectPage6()">Play Ball Game</button>
+            <button onclick="redirectPage7()">Continue To Next</button>
+        </div>
+    </div>
+
+    <script>
+        let board = ['', '', '', '', '', '', '', '', ''];
+        let currentPlayer = 'X';
+        let gameActive = true;
+        let computerSmartness = 3;
+
+        function makeMove(index) {
+            if (gameActive && board[index] === '') {
+                board[index] = currentPlayer;
+                document.getElementsByClassName('cell')[index].innerText = currentPlayer;
+                if (checkWinner()) {
+                    if (checkWinner() !== 'draw') {
+                        document.getElementById('result').innerText =  'You win!';
+                    } else {
+                        document.getElementById('result').innerText = 'It\'s a draw!';
+                    }
+                    gameActive = false;
+                } else {
+                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                    if (currentPlayer === 'O' && gameActive) {
+                        setTimeout(computerMove, 500); // Add delay for better user experience
+                    }
+                }
+            }
+        }
+
+        function computerMove() {
+            if (gameActive) {
+                // Check for winning moves
+                let winningMove = findWinningMove();
+                if (winningMove !== -1 && Math.random() < computerSmartness / 5) {
+                    makeMove(winningMove);
+                    return;
+                }
+
+                // Block opponent's winning moves
+                let blockingMove = findBlockingMove();
+                if (blockingMove !== -1 && Math.random() < computerSmartness / 5) {
+                    makeMove(blockingMove);
+                    return;
+                }
+
+                // If no winning or blocking moves, make a strategic move
+                let strategicMove = findStrategicMove();
+                if (strategicMove !== -1 && Math.random() < computerSmartness / 5) {
+                    makeMove(strategicMove);
+                    return;
+                }
+
+                // If no strategic moves, make a random move
+                let availableMoves = [];
+                for (let i = 0; i < 9; i++) {
+                    if (board[i] === '') {
+                        availableMoves.push(i);
+                    }
+                }
+
+                let randomIndex = Math.floor(Math.random() * availableMoves.length);
+                let randomMove = availableMoves[randomIndex];
+
+                makeMove(randomMove);
+            }
+        }
+
+        function findWinningMove() {
+            // Check for winning moves
+            for (let i = 0; i < 9; i++) {
+                if (board[i] === '' && isWinningMove(i, currentPlayer)) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        function findBlockingMove() {
+            // Check for opponent's winning moves and block them
+            let opponent = currentPlayer === 'X' ? 'O' : 'X';
+            for (let i = 0; i < 9; i++) {
+                if (board[i] === '' && isWinningMove(i, opponent)) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        function findStrategicMove() {
+            // Choose a strategic move (center, corners, sides)
+            let strategicMoves = [4, 0, 2, 6, 8, 1, 3, 5, 7];
+
+            for (let i = 0; i < strategicMoves.length; i++) {
+                if (board[strategicMoves[i]] === '') {
+                    return strategicMoves[i];
+                }
+            }
+
+            return -1;
+        }
+
+        function isWinningMove(index, player) {
+            // Check if making a move at the specified index leads to a win for the player
+            let tempBoard = board.slice();
+            tempBoard[index] = player;
+
+            const winPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+                [0, 4, 8], [2, 4, 6]             // Diagonals
+            ];
+
+            for (let pattern of winPatterns) {
+                const [a, b, c] = pattern;
+                if (tempBoard[a] === player && tempBoard[b] === player && tempBoard[c] === player) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        function checkWinner() {
+            const winPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+                [0, 4, 8], [2, 4, 6]             // Diagonals
+            ];
+
+            for (let pattern of winPatterns) {
+                const [a, b, c] = pattern;
+                if (board[a] !== '' && board[a] === board[b] && board[a] === board[c]) {
+                    return board[a];
+                }
+            }
+
+            if (board.indexOf('') === -1) {
+                return 'draw';
+            }
+
+            return null;
+        }
+
+        function restartGame() {
+            board = ['', '', '', '', '', '', '', '', ''];
+            currentPlayer = 'X';
+            gameActive = true;
+
+            // Clear the board and result message
+            let cells = document.getElementsByClassName('cell');
+            for (let cell of cells) {
+                cell.innerText = '';
+            }
+
+            document.getElementById('result').innerText = '';
+        }
+
+        function updateSmartness() {
+            computerSmartness = document.getElementById('smartnessLevel').value;
+            document.getElementById('smartnessValue').innerText = computerSmartness;
+        }
+
+        function redirectPage6() {
+            window.location.href = 'ball game.html';
+        }
+
+        function redirectPage7() {
+            window.location.href = 'page7.html';
+        }
+    </script>
+</body>
+</html>

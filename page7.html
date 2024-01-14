@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <style>
+        body {
+            background-color: cyan;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #container {
+            text-align: center;
+            font-family: comic sans ms;
+            font-size: 30px;
+            color: rgb(255, 0, 43);
+        }
+
+        #content {
+            margin-top: 20px;
+        }
+
+        #image {
+            margin-top: 20px;
+            max-width: 100%;
+        }
+
+        #buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        
+        <div id="content">
+            <p>More Games Are Under Developement. Please Let Me Know If You Liked These Games. <br>
+                I Really Put A Lot Lot Lot Efforts To Build These. Please Give Me Some Feedback Regarding This.</p>
+            <img id="image" src="https://media.tenor.com/cofRHcGGOfoAAAAj/shy-cute.gif" alt="Image">
+        </div>
+        <div id="buttons">
+            <button onclick="openLink()">Give Me Feedback</button>
+            <button onclick="redirectPage8()">Some Final Words...</button>
+        </div>
+    </div>
+
+    <script>
+        function openLink() {
+            // Replace 'your_link_url' with the actual URL you want to open
+            window.open('https://wa.me//917449910169', '_blank');
+        }
+
+        function redirectPage8() {
+            window.location.href = 'page8.html';
+        }
+    </script>
+</body>
+</html>

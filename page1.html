@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation</title>
+    <style>
+        body {
+            background-color: cyan;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #container {
+            text-align: center;
+            font-family: comic sans ms;
+            font-size: 35px;
+            color: red;
+            font-style: bold;
+
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <p>Glad To Hear That You Opened The File. But You didn't Respond.<br> I Really Put A Lot Of Efforts To Set Up The Whole Thing, <br> 
+            But Ig You Did't Like The Style!  <p>
+            <br>
+        <img src="https://media.tenor.com/wqYFElBnfoYAAAAi/yelynn-yelynnn.gif" alt="Your Image">
+        <br>
+        <p>Okay Let It Be, Let's Proceed With This One??</p>
+        
+        <button onclick="goToPage('page3')">Okay!</button>
+    </div>
+
+    <script>
+        function goToPage(page) {
+            if (page === 'page3') {
+                window.location.href = 'page3.html';
+            }
+        }
+    </script>
+</body>
+</html>

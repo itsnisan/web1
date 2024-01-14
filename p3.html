@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Cards</title>
+    <style>
+        body {
+            background-color: cyan;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #container {
+            text-align: center;
+        }
+        .card {
+            width: 150px;
+            height: 250px;
+            background-color: red;
+            display: inline-block;
+            margin: 10px;
+            cursor: pointer;
+            font-size: 30px;
+            color: white;
+            line-height: 250px;
+        }
+        #message {
+            font-size: 30px;
+            margin-top: 20px;
+        }
+        #clickHereBtn {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <h1>Select Any 2 Cards</h1>
+    <div class="card" onclick="revealOption(this)">Card 1</div>
+    <div class="card" onclick="revealOption(this)">Card 2</div>
+    <div class="card" onclick="revealOption(this)">Card 3</div>
+    <div class="card" onclick="revealOption(this)">Card 4</div>
+    <div class="card" onclick="revealOption(this)">Card 5</div>
+    <div class="card" onclick="revealOption(this)">Card 6</div>
+    <div class="card" onclick="revealOption(this)">Card 7</div>
+    <div class="card" onclick="revealOption(this)">Card 8</div>
+
+    <div id="message"></div>
+    <button id="clickHereBtn" onclick="redirectToNextPage()" style="display: none;">Click Here</button>
+</div>
+
+<script>
+    let selectedCards = [];
+
+    function revealOption(card) {
+        if (selectedCards.length < 2 && !selectedCards.includes(card)) {
+            selectedCards.push(card);
+            card.innerHTML = getOption();
+            if (selectedCards.length === 2) {
+                document.getElementById('message').innerHTML = "Take a Screenshot and Proceed Forward";
+                document.getElementById('clickHereBtn').style.display = 'block';
+            }
+        }
+    }
+
+    function getOption() {
+        const options = ['Hug', 'Movie', 'Lunch', 'Shopping', 'Visit a Place', 'Kiss', 'Icecream', 'Room Date'];
+        const randomIndex = Math.floor(Math.random() * options.length);
+        return options[randomIndex];
+    }
+
+    function redirectToNextPage() {
+        // Replace 'nextPage.html' with the actual URL of the next page
+        window.location.href = 'p4.html';
+    }
+</script>
+
+</body>
+</html>

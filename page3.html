@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game </title>
+    <style>
+        body {
+            background-color: cyan;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+       
+
+        #container {
+            text-align: center;
+            font-family: comic sans ms;
+            font-size: 50px;
+            color: rgb(255, 0, 128);
+        }
+
+        #container3 {
+            text-align: center;
+            font-family: comic sans ms;
+            font-size: 25px;
+            color: rgb(7, 0, 60);
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #result {
+            margin-top: 20px;
+            color: red;
+            font-family: 'Arial', sans-serif; /* Change to your preferred font */
+            font-size: 18px; /* Change to your preferred font size */
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="container">
+        <p>Quick Memory Game: When Is Our Anniversary?</p>
+            
+    <div id="container3">     
+        <p>Write In DDMMYYYY Format (Eg:01092004)</p>
+
+        <label for="answer"></label>
+        <input type="text" id="answer" placeholder="Enter your answer" onkeypress="handleKeyPress(event)">
+        <button onclick="checkAnswer()">Submit</button>
+    
+        <div id=result></div>       
+    </div>
+
+    <script>
+        var attemptCount = 0;
+        
+        function checkAnswer() {
+            var userAnswer = document.getElementById('answer').value;
+            var resultDiv = document.getElementById('result');
+
+            if (userAnswer === '26032023') {
+                // Correct answer, redirect to page4
+                window.location.href = 'page4.html';
+            } else {
+                // Wrong answer, display message
+                attemptCount++;
+                resultDiv.innerHTML = '<span style="color: red; font-family: \'Arial\', sans-serif; font-size: 16px;">Wrong Answer, Try Again (' + attemptCount + ')</span>';
+            }
+        }
+        function handleKeyPress(event) {
+            // If Enter key is pressed, simulate a click on the submit button
+            if (event.key === 'Enter') {
+                checkAnswer();
+            }
+        }
+    </script>
+</body>
+</html>

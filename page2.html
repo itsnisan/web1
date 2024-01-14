@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation</title>
+    <style>
+        body {
+            background-color: cyan;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #container {
+            text-align: center;
+            font-family: comic sans ms;
+            font-size: 30px;
+            color: red;
+            font-style: bold;
+            margin: 50px;
+
+        }
+        
+        #container2 {
+            text-align: center;
+            font-family: comic sans ms;
+            font-size: 30px;
+            color: orange;
+        }
+
+        img {
+            max-width: 100%;
+            height: 50%;
+            margin: 20px 0;
+            align-items: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <p>I'm Very Sad To Hear That You Haven't Opened The File Yet. I Really Put A Lot Of Efforts To Set Up The Whole Thing, 
+            Maybe You Forgot To Open! Don't Worry, You Can Open That From Here Too.  <p>
+    
+    <div id="container2">        
+        <p>Or, If You Don't Want To Open The Previous One, You Can Stay With This File Too!<Br> I Wish You Like This One. </p>
+        
+        <img src="https://media.tenor.com/KsZWbm9FPFAAAAAi/cat-meowed.gif" alt="Your Image">
+        <br>
+        
+        
+        <button onclick="goToPage('p1')">Open Previous One</button>
+
+        <button onclick="goToPage('page3')">Continue With This</button>
+    </div>
+
+    <script>
+        function goToPage(page) {
+            if (page === 'p1') {
+                window.location.href = 'p1.html';
+            }
+                if (page === 'page3') {
+                window.location.href = 'page3.html';
+        }
+            }
+        
+    </script>
+</body>
+</html>

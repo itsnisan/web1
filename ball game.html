@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ball Game</title>
+  <style>
+    
+    #container7 {
+            text-align: center;
+            font-family: comic sans ms;
+            font-size: 25px;
+            color: rgb(255, 0, 0);
+            position: absolute;
+            bottom: 40px;
+            left: 530px;
+        }
+
+        #container8 {
+            text-align: center;
+            font-family: comic sans ms;
+            font-size: 30px;
+            color: rgb(0, 181, 21);
+        }
+    #game-container {
+      width: 1450px;
+      height: 450px;
+      border: 1px solid #000;
+      position: relative;
+      overflow: hidden;
+      background-color: cyan;
+    }
+    #road {
+      width: 100%;
+      height: 20px;
+      background: #999;
+      position: absolute;
+      bottom: 0;
+    }
+    #ball {
+      width: 40px;
+      height: 40px;
+      background: red;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 20px; /* Start position of the ball */
+      left: 50px; /* Start position of the ball */
+    }
+    #jump-button {
+      position: absolute;
+      bottom: 125px;
+      left: 700px;
+      padding: 10px;
+      background-color: #337ab7;
+      color: white;
+      cursor: pointer;
+    }
+
+    button2 {
+      position: absolute;
+      bottom: 15px;
+      left: 675px;
+      padding: 10px;
+      background-color: #337ab7;
+      color: white;
+      cursor: pointer;
+      margin: 5px;
+        }
+  </style>
+</head>
+<body>
+
+<div id="container8">
+<h2>Lets's Play Ball Game</h2>
+</div>
+
+  <div id="game-container">
+    <div id="road"></div>
+    <div id="ball"></div>
+  </div>
+  <div id="jump-button">Jump</div>
+  <p>Holes jumped: <span id="score">0</span></p>
+
+  <button id="restart-btn" style="display: none;">Restart</button>
+</div>
+  <br>
+  <div id="container7">
+<p>Bored?? Let's Try Something Else</p>
+</div>
+   
+  <button2 onclick="proceedToNextPage()">Try Another</button2>
+</div>
+
+
+  <script>
+    let gameInterval;
+    let score = 0;
+    let ballJumping = false;
+ 
+
+    const road = document.getElementById('road');
+    const ball = document.getElementById('ball');
+    const jumpButton = document.getElementById('jump-button');
+    const scoreDisplay = document.getElementById('score');
+    const restartBtn = document.getElementById('restart-btn');
+
+    jumpButton.addEventListener('click', () => {
+      if (!ballJumping) {
+        ballJumping = true;
+        jump();
+      }
+    });
+
+    restartBtn.addEventListener('click', () => {
+      score = 0;
+      scoreDisplay.textContent = score;
+      restartBtn.style.display = 'none';
+      startGame();
+    });
+
+    function jump() {
+      let jumpHeight = 100;
+      let jumpDuration = 500;
+
+      let startTime = null;
+
+      function animateJump(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+
+        const progress = Math.min(elapsed / jumpDuration, 1);
+        const newPosition = jumpHeight * Math.sin(progress * Math.PI);
+
+        ball.style.bottom = `${20 + newPosition}px`;
+
+        if (progress < 1) {
+          requestAnimationFrame(animateJump);
+        } else {
+          ballJumping = false;
+        }
+      }
+
+      requestAnimationFrame(animateJump);
+    }
+
+    function createHole() {
+      const hole = document.createElement('div');
+      hole.classList.add('hole');
+      hole.style.width = '20px';
+      hole.style.height = '15px';
+      hole.style.background = 'black';
+      hole.style.position = 'absolute';
+      hole.style.bottom = '20px';
+      hole.style.left = '1350px'; /* Start position of the hole */
+
+      road.appendChild(hole);
+// Assigning different speeds to holes in two groups
+      let holeSpeed;
+      if (Math.random() < 0.5) {
+        holeSpeed = Math.random() * 3 + 2; // Slower speed for half of the holes
+      } else {
+        holeSpeed = Math.random() * 3 + 5; // Faster speed for the other half
+      }
+
+      let holeMove = setInterval(() => {
+        const ballBottom = parseInt(getComputedStyle(ball).bottom);
+        const holeLeft = parseInt(getComputedStyle(hole).left);
+
+        if (holeLeft < 0) {
+          hole.remove();
+          clearInterval(holeMove);
+        } else {
+          hole.style.left = `${holeLeft - holeSpeed}px`; // Move with assigned speed
+
+          if (holeLeft < 70 && holeLeft > 50 && ballBottom < 40) {
+            clearInterval(holeMove);
+            endGame();
+          }
+        }
+      }, 6);
+    }
+
+    function startGame() {
+      gameInterval = setInterval(() => {
+        createHole();
+        score++;
+       scoreDisplay.textContent = score;
+      }, Math.random() * 2 + 800);
+    }
+
+    function endGame() {
+      clearInterval(gameInterval);
+      restartBtn.style.display = 'block';
+    }
+
+    startGame();
+
+    function proceedToNextPage() {
+            // Redirect to the next page (replace 'page5.html' with the actual name of the next page)
+            window.location.href = 'page5.html';
+        }
+  </script>
+</body>
+</html>

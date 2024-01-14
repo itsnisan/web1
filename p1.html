@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Love Site</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-image: url('https://wallpapercave.com/wp/wp2344692.jpg'); /
+      background-size: fit;
+      background-position: center;
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: lime;
+      font-family: Kaufmann BT;
+      text-align: center;
+    }
+    #question {
+      font-size: 150px;
+      margin-bottom: 110px;
+    }
+    #buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      text-transform: uppercase;
+    }
+    #yes {
+      background-color: green;
+    }
+    #no {
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="question">Do You Love Me?</div>
+  <div id="buttons">
+    <button id="yes" class="button" onclick="redirectToNextPage()">Yes</button>
+    <button id="no" class="button" onclick="randomizePosition()">No</button>
+  </div>
+
+  <script>
+   function redirectToNextPage() {
+        // Replace 'nextPage.html' with the actual URL of the next page
+        window.location.href = 'p2.html';
+    }
+
+    function randomizePosition() {
+      var button = document.getElementById('no');
+      var randomX = Math.floor(Math.random() * window.innerWidth);
+      var randomY = Math.floor(Math.random() * window.innerHeight);
+      button.style.position = 'absolute';
+      button.style.left = randomX + 'px';
+      button.style.top = randomY + 'px';
+    }
+  </script>
+</body>
+</html>
